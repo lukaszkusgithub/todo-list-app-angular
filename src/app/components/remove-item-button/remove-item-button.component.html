@@ -1,0 +1,43 @@
+<div
+  (click)="removeMode && $event.stopPropagation()"
+  (keydown)="removeMode && $event.stopPropagation()"
+  class="flex items-center rounded-md"
+  [class.bg-red-700]="removeMode"
+  [class.text-white]="removeMode"
+  tabindex="0"
+>
+  <span
+    class="text-sm transition-transform duration-300 h-full py-2 pl-2 rounded-md font-semibold"
+    [class.invisible]="!removeMode"
+    [class.-translate-x-6]="removeMode"
+    [class.bg-red-700]="removeMode"
+    >Are you sure?</span
+  >
+  <button
+    *ngIf="!removeMode"
+    (click)="removeMode = true; $event.stopPropagation()"
+    (keydown)="removeMode = true; $event.stopPropagation()"
+    class="flex hover:bg-white hover:rounded-full"
+    tabindex="0"
+  >
+    <ng-icon name="featherTrash2" class="icon--hover" />
+  </button>
+  <button
+    *ngIf="removeMode"
+    (click)="removeMode = false; $event.stopPropagation()"
+    (keydown)="removeMode = false; $event.stopPropagation()"
+    class="flex mr-1"
+    tabindex="0"
+  >
+    <ng-icon name="featherX" class="hover:bg-white icon--hover" />
+  </button>
+  <button
+    *ngIf="removeMode"
+    (click)="confirm.emit(); removeMode = false; $event.stopPropagation()"
+    (keydown)="confirm.emit(); removeMode = false; $event.stopPropagation()"
+    class="flex pr-2"
+    tabindex="0"
+  >
+    <ng-icon name="featherCheck" class="hover:bg-white icon--hover" />
+  </button>
+</div>

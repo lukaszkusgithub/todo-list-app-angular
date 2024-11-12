@@ -2,23 +2,40 @@ import { Task } from "../models/task.model";
 import { ListFetchingError } from "../models/error.model";
 
 // States of the machine
-type IdleState = { state: "idle" };
-type LoadingState = { state: "loading" };
-export type SuccessState = { state: "success"; results: Task[] };
-export type ErrorState = { state: "error"; error: ListFetchingError };
+interface IdleState {
+  state: "idle";
+}
+interface LoadingState {
+  state: "loading";
+}
+export interface SuccessState<T> {
+  state: "success";
+  results: T[];
+}
+export interface ErrorState {
+  state: "error";
+  error: ListFetchingError;
+}
 
 // The machine can be in one of these states
-export type ComponentListState = IdleState | LoadingState | SuccessState | ErrorState;
+export type ComponentListState<T> =
+  | IdleState
+  | LoadingState
+  | SuccessState<T>
+  | ErrorState;
 
 // Events that can trigger state transitions
-type Event =
+export type Event =
   | { type: "FETCH" }
   | { type: "SUCCESS"; results: Task[] }
   | { type: "ERROR"; error: ListFetchingError }
   | { type: "RETRY" };
 
 // Transition function between states
-export function transition(state: ComponentListState, event: Event): ComponentListState {
+export function transition(
+  state: ComponentListState<Task>,
+  event: Event
+): ComponentListState<Task> {
   switch (state.state) {
     case "idle":
       if (event.type === "FETCH") {
@@ -37,7 +54,7 @@ export function transition(state: ComponentListState, event: Event): ComponentLi
 
     case "error":
       if (event.type === "RETRY") {
-        return { state: "loading" };
+        return { state: "loading" }; // Retry by going back to loading state
       }
       break;
 

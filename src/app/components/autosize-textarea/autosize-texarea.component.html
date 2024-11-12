@@ -1,0 +1,9 @@
+<textarea
+  #textarea
+  [placeholder]="placeholder"
+  [value]="value"
+  class="resize-none overflow-hidden focus:outline-orange-400 w-full"
+  (click)="$event.stopPropagation()"
+  (keyup.enter)="submitText.emit(textarea.value); textarea.value = ''"
+  (input)="calcHeight(textarea)"
+></textarea>

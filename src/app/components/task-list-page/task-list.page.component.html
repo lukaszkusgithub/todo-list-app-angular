@@ -1,0 +1,27 @@
+<ng-container [ngSwitch]="listState.state">
+  <!-- Success state -->
+  <app-success-state
+    *ngSwitchCase="'success'"
+    [tasks]="results"
+    [addTask]="addTask.bind(this)"
+  ></app-success-state>
+
+  <!-- Loading state -->
+  <app-loading-state *ngSwitchCase="'loading'"></app-loading-state>
+
+  <!-- Error state -->
+  <app-error-state *ngSwitchCase="'error'" [error]="error"></app-error-state>
+
+  <!-- Idle state -->
+  <app-idle-state *ngSwitchCase="'idle'"></app-idle-state>
+</ng-container>
+
+<!-- Fetch Tasks button -->
+<div *ngIf="isIdleState || isErrorState" class="mt-4 text-center">
+  <button
+    (click)="fetchTasks()"
+    class="px-6 py-3 bg-blue-500 text-white rounded shadow hover:bg-blue-700 transition duration-300"
+  >
+    Fetch Tasks
+  </button>
+</div>
