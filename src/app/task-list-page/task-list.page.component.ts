@@ -1,5 +1,3 @@
-// task-list.page.component.ts
-
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import {
@@ -7,12 +5,12 @@ import {
   transition,
   SuccessState,
   ErrorState,
-} from "../../state/list-state.machine";
-import { Task } from "../../models/task.model";
-import { TaskListService } from "../../services/tesks.service"; // Import the service
+} from "../state/list-state.machine";
+import { Task } from "../models/task.model";
+import { TaskListService } from "../services/tesks.service"; // Import the service
 import { SubmitTextComponent } from "../submit-text/submit-text.component";
 import { TasksListComponent } from "../tasks-list/tasks-list.component";
-import { ListFetchingError } from "../../models/error.model";
+import { ListFetchingError } from "../models/error.model";
 import { CommonModule } from "@angular/common";
 
 @Component({
@@ -39,17 +37,40 @@ export class TaskListPageComponent {
     // Set state to 'loading'
     this.send({ type: "FETCH" });
 
-    this.taskListService.fetchTasks().then((response) => {
-      setTimeout(() => {
-        if (Array.isArray(response)) {
-          // On success, update state to 'success'
-          this.send({ type: "SUCCESS", results: response });
-        } else {
-          // On error, update state to 'error'
-          this.send({ type: "ERROR", error: response });
+    this.taskListService
+      .fetchTasks()
+      .then((response) => {
+        setTimeout(() => {
+          if (Array.isArray(response)) {
+            // On success, update state to 'success'
+            this.send({ type: "SUCCESS", results: response });
+          } else {
+            // On error, update state to 'error'
+            this.send({ type: "ERROR", error: response });
+          }
+        }, 1200);
+      })
+      .catch((error) => {
+        // Handle network or other errors like ECONNREFUSED
+        console.error("Error fetching tasks:", error);
+
+        let errorMessage = "An error occurred while fetching tasks";
+
+        // Check for ECONNREFUSED or other connection issues
+        if (error.code === "ECONNREFUSED") {
+          errorMessage =
+            "Could not connect to the server. Please make sure the server is running.";
         }
-      }, 1200);
-    });
+
+        // Send error to the state machine
+        this.send({
+          type: "ERROR",
+          error: {
+            status: error.status || 500,
+            message: errorMessage,
+          },
+        });
+      });
   }
 
   // Helper getters for the state
@@ -79,8 +100,8 @@ export class TaskListPageComponent {
     return (this.listState as ErrorState).error;
   }
 
+  // Placeholder for addTask functionality
   addTask($event: string) {
-    // Placeholder for adding tasks functionality
     throw new Error("Method not implemented.");
   }
 }
