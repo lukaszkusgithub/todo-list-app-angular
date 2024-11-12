@@ -1,0 +1,33 @@
+<!-- Component for adding a new task -->
+<app-submit-text (submitText)="addTask($event)" class="block mt-4"></app-submit-text>
+
+<!-- State handling with *ngSwitch -->
+<ng-container [ngSwitch]="listState.state">
+  <!-- Success state: Display the list of tasks -->
+  <ng-container *ngSwitchCase="'success'">
+    <app-tasks-list class="block mt-4" [tasks]="results"></app-tasks-list>
+  </ng-container>
+
+  <!-- Loading state: Display loading message -->
+  <p *ngSwitchCase="'loading'" class="mt-4">Loading...</p>
+
+  <!-- Error state: Display error details -->
+  <ng-container *ngSwitchCase="'error'">
+    <p class="mt-4 text-red-500">
+      Error: {{ error.message }} ({{ error.status }})
+      <!-- Use the getter for error -->
+    </p>
+  </ng-container>
+
+  <!-- Idle state: Prompt to fetch tasks -->
+  <p *ngSwitchCase="'idle'" class="mt-4">
+    No tasks loaded. Click "Fetch Tasks" to load the list.
+  </p>
+</ng-container>
+
+<!-- Fetch Tasks button for 'idle' and 'error' states -->
+<div *ngIf="isIdleState || isErrorState" class="mt-4">
+  <button (click)="fetchTasks()" class="px-4 py-2 bg-blue-500 text-white rounded">
+    Fetch Tasks
+  </button>
+</div>

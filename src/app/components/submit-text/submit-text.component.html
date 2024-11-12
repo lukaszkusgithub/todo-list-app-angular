@@ -1,0 +1,13 @@
+<div>
+  <input
+    #textInput
+    (keyup.enter)="submitText.emit(textInput.value); textInput.value = ''"
+    class="border-b border-b-orange-400 outline-none"
+  />
+  <button
+    (click)="submitText.emit(textInput.value); textInput.value = ''"
+    class="border border-orange-400 ml-4 px-4"
+  >
+    Add
+  </button>
+</div>
