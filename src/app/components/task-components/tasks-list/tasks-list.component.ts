@@ -1,11 +1,11 @@
 import { Component, inject, Input } from "@angular/core";
-import { Task } from "../../models/task.model";
 import { CommonModule } from "@angular/common";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { featherCalendar } from "@ng-icons/feather-icons";
-import { RemoveItemButtonComponent } from "../remove-item-button/remove-item-button.component";
-import { AutosizeTextareaComponent } from "../autosize-textarea/autosize-texarea.component";
-import { TaskListStateService } from "../../services/tasks-list-state.service";
+import { RemoveItemButtonComponent } from "@ui-components/remove-item-button/remove-item-button.component";
+import { AutosizeTextareaComponent } from "@ui-components/autosize-textarea/autosize-texarea.component";
+import { TaskListStateService } from "@services/tasks-list-state.service";
+import { Task } from "@models/task.model";
 
 @Component({
   selector: "app-tasks-list",

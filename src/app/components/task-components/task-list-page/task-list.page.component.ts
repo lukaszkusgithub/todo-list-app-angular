@@ -1,10 +1,11 @@
 import { Component, inject, OnInit } from "@angular/core";
-import { TaskListStateService } from "../../services/tasks-list-state.service";
-import { SuccessStateComponent } from "../state-components/success-state/success-state.component";
-import { LoadingStateComponent } from "../state-components/loading-state/loading-state.component";
-import { ErrorStateComponent } from "../state-components/error-state/error-state.component";
-import { IdleStateComponent } from "../state-components/idle-state/idle-state.component";
+
 import { CommonModule } from "@angular/common";
+import { SuccessStateComponent } from "@state-components/success-state/success-state.component";
+import { LoadingStateComponent } from "@state-components/loading-state/loading-state.component";
+import { ErrorStateComponent } from "@state-components/error-state/error-state.component";
+import { IdleStateComponent } from "@state-components/idle-state/idle-state.component";
+import { TaskListStateService } from "@services/tasks-list-state.service";
 
 @Component({
   selector: "app-task-list-page",

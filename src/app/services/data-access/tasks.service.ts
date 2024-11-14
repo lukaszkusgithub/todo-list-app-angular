@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Task } from "../models/task.model";
-import { ListFetchingError } from "../models/error.model";
-import { wait } from "./wait";
+import { ListFetchingError } from "@models/error.model";
+import { Task } from "@models/task.model";
+import { wait } from "@utils/wait";
 
 @Injectable({
-  providedIn: "root", // The service will be available globally in the application
+  providedIn: "root",
 })
 export class TaskListService {
   private readonly URL = "http://localhost:3000"; // API endpoint for tasks

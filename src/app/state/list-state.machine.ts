@@ -1,5 +1,5 @@
-import { Task } from "../models/task.model";
-import { ListFetchingError } from "../models/error.model";
+import { ListFetchingError } from "@models/error.model";
+import { Task } from "@models/task.model";
 
 // States of the machine
 interface IdleState {

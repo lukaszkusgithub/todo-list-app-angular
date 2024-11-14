@@ -6,9 +6,9 @@ import {
   ErrorState,
   Event,
 } from "../state/list-state.machine";
-import { Task } from "../models/task.model";
-import { ListFetchingError } from "../models/error.model";
-import { TaskListService } from "./tasks.service";
+import { TaskListService } from "./data-access/tasks.service";
+import { Task } from "@models/task.model";
+import { ListFetchingError } from "@models/error.model";
 @Injectable({
   providedIn: "root",
 })

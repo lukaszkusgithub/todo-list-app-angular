@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { ListFetchingError } from "../../../models/error.model";
+import { ListFetchingError } from "@models/error.model";
 
 @Component({
   selector: "app-error-state",

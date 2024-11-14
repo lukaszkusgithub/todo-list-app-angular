@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 import { ComponentListState, transition, Event } from "./list-state.machine"; // Upewnij się, że Event jest eksportowane z list-state.machine
+import { Task } from "@models/task.model";
 
 // Injectable service for managing the list state
 @Injectable({ providedIn: "root" })
 export class ListStateService {
   // BehaviorSubject to hold the current state of the list, initial state is 'idle'
-  private state = new BehaviorSubject<ComponentListState>({ state: "idle" });
+  private state = new BehaviorSubject<ComponentListState<Task>>({ state: "idle" });
 
   // Observable stream of the state that can be subscribed to
   state$ = this.state.asObservable();
