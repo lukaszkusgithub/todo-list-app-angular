@@ -5,8 +5,8 @@ import { featherCalendar } from "@ng-icons/feather-icons";
 import { RemoveItemButtonComponent } from "@ui-components/remove-item-button/remove-item-button.component";
 import { AutosizeTextareaComponent } from "@ui-components/autosize-textarea/autosize-texarea.component";
 import { Task } from "@models/task.model";
-// import { CustomDatePipe } from "src/app/utils/pipes/custom-date.pipe";
 import { TaskUpdatePayload } from "@services/tasks-list-state.service";
+import { CustomDatePipe } from "@utils/pipes/custom-date.pipe";
 
 @Component({
   selector: "app-task-card",
@@ -15,6 +15,7 @@ import { TaskUpdatePayload } from "@services/tasks-list-state.service";
   imports: [
     CommonModule,
     NgIconComponent,
+    CustomDatePipe,
     RemoveItemButtonComponent,
     AutosizeTextareaComponent,
   ],

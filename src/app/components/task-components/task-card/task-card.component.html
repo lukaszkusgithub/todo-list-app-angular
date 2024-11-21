@@ -22,7 +22,11 @@
       </ng-template>
     </section>
     <footer class="pt-2 flex items-center justify-end">
-      <ng-icon [title]="task.createdAt" name="featherCalendar" class="text-sm" />
+      <ng-icon
+        [title]="task.createdAt | customDate"
+        name="featherCalendar"
+        class="text-sm"
+      />
     </footer>
   </button>
 </div>

@@ -29,9 +29,6 @@ export class TaskListStateService {
 
   send(event: Event) {
     this.listState = transition(this.listState, event);
-    if (this.listState.state === "success") {
-      console.log(this.listState.results);
-    }
   }
 
   fetchTasks() {
