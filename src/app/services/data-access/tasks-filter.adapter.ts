@@ -1,5 +1,5 @@
 import { TASK_STATUS } from "@models/task-status.enum";
-import { GetAllTasksSearchParams } from "@services/types/search-params.type";
+import { GetAllTasksSearchParams } from "../../types/search-params.type";
 import { TasksListFiltersFormValue } from "@task-components/ui/tasks-list-filter/tasks-list-filter.component";
 
 export function getAllTasksSearchParams(

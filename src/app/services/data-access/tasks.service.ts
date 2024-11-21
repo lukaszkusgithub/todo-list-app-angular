@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
+import { GetAllTasksSearchParams } from "@custom-types/search-params.type";
+import { TaskUpdatePayload } from "@custom-types/tasks-payload.type";
 import { ListFetchingError } from "@models/error.model";
 import { Task } from "@models/task.model";
-import { GetAllTasksSearchParams } from "@services/types/search-params.type";
-import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
 
 import { wait } from "@utils/wait";
 

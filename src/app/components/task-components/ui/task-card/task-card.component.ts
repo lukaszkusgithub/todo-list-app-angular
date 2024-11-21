@@ -6,7 +6,7 @@ import { Task } from "@models/task.model";
 import { CustomDatePipe } from "@utils/pipes/custom-date.pipe";
 import { RemoveItemButtonComponent } from "@shared-ui-components/remove-item-button/remove-item-button.component";
 import { AutosizeTextareaComponent } from "@shared-ui-components/autosize-textarea/autosize-texarea.component";
-import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
+import { TaskUpdatePayload } from "../../../../types/tasks-payload.type";
 
 @Component({
   selector: "app-task-card",

@@ -1,8 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { Component, inject, OnInit } from "@angular/core";
+import { GetAllTasksSearchParams } from "@custom-types/search-params.type";
 import { getAllTasksSearchParams } from "@services/data-access/tasks-filter.adapter";
 import { TaskListStateService } from "@services/tasks-list-state.service";
-import { GetAllTasksSearchParams } from "@services/types/search-params.type";
 import { ErrorStateComponent } from "@state-components/error-state/error-state.component";
 import { IdleStateComponent } from "@state-components/idle-state/idle-state.component";
 import { LoadingStateComponent } from "@state-components/loading-state/loading-state.component";
@@ -32,13 +32,7 @@ export class TaskListPageComponent implements OnInit {
     this.fetchTasks(getAllTasksSearchParams(filters));
   }
 
-  ngOnInit() {
-    // this.fetchTasks(getAllTasksSearchParams(filters));
-    // this.form.valueChanges.subscribe(() => {
-    //   this.fetchTasks(getAllTaskSearchParams(this.form.getRawValue()));
-    // });
-    // this.fetchTasks(getAllTasksSearchParams(this.form.getRawValue()));
-  }
+  ngOnInit() {}
 
   get listState() {
     return this.stateService.state;

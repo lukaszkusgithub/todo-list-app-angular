@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 
 import { Task } from "@models/task.model";
 import { TaskCardComponent } from "@task-components/ui/task-card/task-card.component";
-import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
+import { TaskUpdatePayload } from "../../../../types/tasks-payload.type";
 import { TaskListStateService } from "@services/tasks-list-state.service";
 
 @Component({

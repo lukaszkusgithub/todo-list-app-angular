@@ -9,8 +9,8 @@ import {
 import { TaskListService } from "./data-access/tasks.service";
 import { Task } from "@models/task.model";
 import { ListFetchingError } from "@models/error.model";
-import { GetAllTasksSearchParams } from "./types/search-params.type";
-import { TaskUpdatePayload } from "./types/tasks-payload.type";
+import { GetAllTasksSearchParams } from "@custom-types/search-params.type";
+import { TaskUpdatePayload } from "@custom-types/tasks-payload.type";
 
 @Injectable({
   providedIn: "root",

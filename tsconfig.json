@@ -11,7 +11,8 @@
       "@models/*": ["./src/app/models/*"],
       "@state/*": ["./src/app/state/*"],
       "@utils/*": ["./src/app/utils/*"],
-      "@shared-enums/*": ["./src/app/components/shared/enums/*"]
+      "@shared-enums/*": ["./src/app/components/shared/enums/*"],
+      "@custom-types/*": ["./src/app/types/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

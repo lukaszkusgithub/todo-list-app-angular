@@ -19,11 +19,11 @@
 </ng-container>
 
 <!-- Fetch Tasks button -->
-<!-- <div *ngIf="isIdleState || isErrorState" class="mt-4 text-center">
+<div *ngIf="isIdleState || isErrorState" class="mt-4 text-center">
   <button
-    (click)="fetchTasks(getAllTasksSearchParams(this.form.getRawValue()))"
+    (click)="fetchTasks({ q: '', _sort: 'createdAt', _order: 'asc', done_like: '' })"
     class="px-6 py-3 bg-blue-500 text-white rounded shadow hover:bg-blue-700 transition duration-300"
   >
     Fetch Tasks
   </button>
-</div> -->
+</div>
