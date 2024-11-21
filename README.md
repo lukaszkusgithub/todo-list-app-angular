@@ -30,11 +30,13 @@ To run a mock backend using `json-server`, follow the instructions below to get 
        {
          "id": 1,
          "name": "Learn Angular",
+         "createdAt": 0,
          "done": false
        },
        {
          "id": 2,
          "name": "Learn JSON Server",
+         "createdAt": 0,
          "done": false
        }
      ]
