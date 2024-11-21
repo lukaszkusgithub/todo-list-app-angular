@@ -9,11 +9,8 @@ import {
 import { TaskListService } from "./data-access/tasks.service";
 import { Task } from "@models/task.model";
 import { ListFetchingError } from "@models/error.model";
-
-export interface TaskUpdatePayload {
-  done?: boolean;
-  name?: string;
-}
+import { GetAllTasksSearchParams } from "./types/search-params.type";
+import { TaskUpdatePayload } from "./types/tasks-payload.type";
 
 @Injectable({
   providedIn: "root",
@@ -31,10 +28,10 @@ export class TaskListStateService {
     this.listState = transition(this.listState, event);
   }
 
-  fetchTasks() {
+  fetchTasks(searchParams: GetAllTasksSearchParams) {
     this.send({ type: "FETCH" });
 
-    this.tasksService.getAll().then((response) => {
+    this.tasksService.getAll(searchParams).then((response) => {
       if (Array.isArray(response)) {
         this.send({ type: "SUCCESS", results: response });
       } else {
@@ -47,12 +44,6 @@ export class TaskListStateService {
     if (this.listState.state === "success") {
       this.tasksService.add(name).then((response) => {
         if ("id" in response) {
-          console.log("add Taks", response);
-          console.log("add teks + resp", [
-            ...(this.listState as SuccessState<Task>).results,
-            response,
-          ]);
-
           this.send({
             type: "SUCCESS",
             results: [...(this.listState as SuccessState<Task>).results, response],

@@ -2,11 +2,11 @@ import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { featherCalendar } from "@ng-icons/feather-icons";
-import { RemoveItemButtonComponent } from "@ui-components/remove-item-button/remove-item-button.component";
-import { AutosizeTextareaComponent } from "@ui-components/autosize-textarea/autosize-texarea.component";
 import { Task } from "@models/task.model";
-import { TaskUpdatePayload } from "@services/tasks-list-state.service";
 import { CustomDatePipe } from "@utils/pipes/custom-date.pipe";
+import { RemoveItemButtonComponent } from "@shared-ui-components/remove-item-button/remove-item-button.component";
+import { AutosizeTextareaComponent } from "@shared-ui-components/autosize-textarea/autosize-texarea.component";
+import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
 
 @Component({
   selector: "app-task-card",

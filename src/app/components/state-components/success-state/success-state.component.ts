@@ -1,7 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { Task } from "@models/task.model";
-import { TasksListComponent } from "@task-components/tasks-list/tasks-list.component";
-import { SubmitTextComponent } from "@ui-components/submit-text/submit-text.component";
+import { SubmitTextComponent } from "@shared-ui-components/submit-text/submit-text.component";
+import { TasksListComponent } from "@task-components/ui/tasks-list/tasks-list.component";
 
 @Component({
   selector: "app-success-state",

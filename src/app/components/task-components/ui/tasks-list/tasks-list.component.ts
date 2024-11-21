@@ -1,11 +1,10 @@
 import { Component, inject, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import {
-  TaskListStateService,
-  TaskUpdatePayload,
-} from "@services/tasks-list-state.service";
+
 import { Task } from "@models/task.model";
-import { TaskCardComponent } from "@task-components/task-card/task-card.component";
+import { TaskCardComponent } from "@task-components/ui/task-card/task-card.component";
+import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
+import { TaskListStateService } from "@services/tasks-list-state.service";
 
 @Component({
   selector: "app-tasks-list",

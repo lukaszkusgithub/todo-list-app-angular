@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { ListFetchingError } from "@models/error.model";
 import { Task } from "@models/task.model";
-import { TaskUpdatePayload } from "@services/tasks-list-state.service";
+import { GetAllTasksSearchParams } from "@services/types/search-params.type";
+import { TaskUpdatePayload } from "@services/types/tasks-payload.type";
+
 import { wait } from "@utils/wait";
 
 @Injectable({
@@ -10,10 +12,14 @@ import { wait } from "@utils/wait";
 export class TaskListService {
   private readonly URL = "http://localhost:3000"; // API endpoint for tasks
 
-  async getAll() {
+  async getAll(searchParams: GetAllTasksSearchParams) {
     await wait();
 
-    return fetch(`${this.URL}/tasks`).then<Task[] | ListFetchingError>((response) => {
+    const url = new URL("/tasks", this.URL);
+
+    url.search = new URLSearchParams(searchParams).toString();
+
+    return fetch(url).then<Task[] | ListFetchingError>((response) => {
       if (response.ok) {
         return response.json();
       }
@@ -34,12 +40,17 @@ export class TaskListService {
   }
 
   async update(taskId: number, payload: TaskUpdatePayload) {
+    const bodyData = JSON.stringify({
+      ...(payload.done !== undefined && { done: payload.done }),
+      ...(payload.name !== undefined && { name: payload.name }),
+    });
+
     return fetch(`${this.URL}/tasks/${taskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ payload }),
+      body: bodyData,
     }).then<Task | Error>((response) => {
       if (response.ok) {
         return response.json();

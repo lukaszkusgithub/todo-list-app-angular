@@ -4,13 +4,14 @@
   "compileOnSave": false,
   "compilerOptions": {
     "paths": {
-      "@ui-components/*": ["./src/app/components/shared/ui-components/*"],
+      "@shared-ui-components/*": ["./src/app/components/shared/ui-components/*"],
       "@state-components/*": ["./src/app/components/state-components/*"],
       "@task-components/*": ["./src/app/components/task-components/*"],
       "@services/*": ["./src/app/services/*"],
       "@models/*": ["./src/app/models/*"],
       "@state/*": ["./src/app/state/*"],
-      "@utils/*": ["./src/app/utils/*"]
+      "@utils/*": ["./src/app/utils/*"],
+      "@shared-enums/*": ["./src/app/components/shared/enums/*"]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

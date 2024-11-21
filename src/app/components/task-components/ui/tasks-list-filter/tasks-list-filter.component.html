@@ -1,0 +1,44 @@
+<form [formGroup]="form">
+  <details open>
+    <summary class="marker:content-none">Filters</summary>
+    <div class="mb-2 flex justify-between">
+      <fieldset class="flex flex-col">
+        <label for="filter-search-term">Search</label>
+        <input
+          formControlName="searchTerm"
+          id="filter-search-term"
+          class="border-b border-b-orange-400 outline-none"
+        />
+      </fieldset>
+
+      <fieldset class="flex flex-col">
+        <label for="filter-status">Status</label>
+        <select
+          formControlName="status"
+          id="filter-status"
+          class="border border-orange-400 outline-none"
+        >
+          <option [value]="statusOptions.ALL">-</option>
+          <option [value]="statusOptions.DONE">Done</option>
+          <option [value]="statusOptions.TODO">Todo</option>
+        </select>
+      </fieldset>
+    </div>
+  </details>
+  <div class="flex gap-12">
+    <button
+      class="rounded px-2 py-1 transition-colors duration-300"
+      [class.bg-green-400]="form.controls.sortBy.value === sortOptions.DESC"
+      (click)="sort(sortOptions.DESC)"
+    >
+      📆🔽
+    </button>
+    <button
+      class="rounded px-2 py-1 transition-colors duration-300"
+      [class.bg-green-400]="form.controls.sortBy.value === sortOptions.ASC"
+      (click)="sort(sortOptions.ASC)"
+    >
+      📆🔼
+    </button>
+  </div>
+</form>
