@@ -26,58 +26,64 @@ export class TaskListStateService {
 
   send(event: Event) {
     this.listState = transition(this.listState, event);
+    // console.log(this.listState);
   }
 
   fetchTasks(searchParams: GetAllTasksSearchParams) {
     this.send({ type: "FETCH" });
 
-    this.tasksService.getAll(searchParams).then((response) => {
-      if (Array.isArray(response)) {
-        this.send({ type: "SUCCESS", results: response });
-      } else {
-        this.send({ type: "ERROR", error: response });
-      }
+    this.tasksService.getAll(searchParams).subscribe({
+      next: (response) => {
+        this.send({ type: "SUCCESS", results: response.body! });
+      },
+      error: (err) => {
+        this.send({ type: "ERROR", error: err });
+      },
     });
   }
 
   addTask(name: string) {
     if (this.listState.state === "success") {
-      this.tasksService.add(name).then((response) => {
-        if ("id" in response) {
+      this.tasksService.add(name).subscribe({
+        next: (results) => {
           this.send({
             type: "SUCCESS",
-            results: [...(this.listState as SuccessState<Task>).results, response],
+            results: [...(this.listState as SuccessState<Task>).results, results],
           });
-        } else {
-          console.error("Error adding task:", response.message);
-        }
+        },
+        error: (err) => {
+          console.error("Error adding task:", err.message);
+        },
       });
     }
   }
 
   deleteTask(taskId: number) {
-    this.tasksService.delete(taskId).then((response) => {
-      if (response instanceof Error) {
-        console.error(response.message);
-      } else if (this.listState.state === "success") {
+    this.tasksService.delete(taskId).subscribe({
+      next: () => {
         const updatedResults = (this.listState as SuccessState<Task>).results.filter(
           (task) => task.id !== taskId
         );
         this.send({ type: "SUCCESS", results: updatedResults });
-      }
+      },
+      error: (err) => {
+        console.error(err.message);
+      },
     });
   }
 
   updateTask(taskId: number, payload: TaskUpdatePayload) {
-    this.tasksService.update(taskId, payload).then((response) => {
-      if (response instanceof Error) {
-        console.error(response.message);
-      } else if (this.listState.state === "success") {
+    this.tasksService.update(taskId, payload).subscribe({
+      next: () => {
         const updatedResults = (this.listState as SuccessState<Task>).results.map(
           (task) => (task.id === taskId ? { ...task, ...payload } : task)
         );
         this.send({ type: "SUCCESS", results: updatedResults });
-      }
+        console.log(updatedResults);
+      },
+      error: (err) => {
+        console.error(err.message);
+      },
     });
   }
 

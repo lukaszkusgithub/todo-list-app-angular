@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { ChangeDetectorRef, Component, EventEmitter, Output } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import {
@@ -14,16 +14,20 @@ import {
   imports: [CommonModule, NgIconComponent],
   providers: [provideIcons({ featherTrash2, featherUser, featherCheck, featherX })],
   templateUrl: "./remove-item-button.component.html",
-  styles: [
-    `
-      .icon--hover {
-        @apply hover:text-red-700 hover:rounded-full;
-      }
-    `,
-  ],
+  styleUrl: "./remove-item-button.component.scss",
 })
 export class RemoveItemButtonComponent {
   @Output() confirm = new EventEmitter<void>();
 
   removeMode = false;
+
+  toggleRemoveMode(event: Event) {
+    event.stopPropagation(); // Zatrzymuje propagację kliknięcia
+    this.removeMode = true; // Włącza tryb usuwania
+  }
+
+  cancelRemoveMode(event: Event) {
+    event.stopPropagation(); // Zatrzymuje propagację kliknięcia
+    this.removeMode = false; // Anuluje tryb usuwania
+  }
 }
