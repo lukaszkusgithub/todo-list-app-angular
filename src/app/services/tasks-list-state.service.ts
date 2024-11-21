@@ -9,6 +9,12 @@ import {
 import { TaskListService } from "./data-access/tasks.service";
 import { Task } from "@models/task.model";
 import { ListFetchingError } from "@models/error.model";
+
+export interface TaskUpdatePayload {
+  done?: boolean;
+  name?: string;
+}
+
 @Injectable({
   providedIn: "root",
 })
@@ -23,6 +29,9 @@ export class TaskListStateService {
 
   send(event: Event) {
     this.listState = transition(this.listState, event);
+    if (this.listState.state === "success") {
+      console.log(this.listState.results);
+    }
   }
 
   fetchTasks() {
@@ -41,6 +50,12 @@ export class TaskListStateService {
     if (this.listState.state === "success") {
       this.tasksService.add(name).then((response) => {
         if ("id" in response) {
+          console.log("add Taks", response);
+          console.log("add teks + resp", [
+            ...(this.listState as SuccessState<Task>).results,
+            response,
+          ]);
+
           this.send({
             type: "SUCCESS",
             results: [...(this.listState as SuccessState<Task>).results, response],
@@ -65,13 +80,13 @@ export class TaskListStateService {
     });
   }
 
-  updateTask(taskId: number, name: string) {
-    this.tasksService.update(taskId, name).then((response) => {
+  updateTask(taskId: number, payload: TaskUpdatePayload) {
+    this.tasksService.update(taskId, payload).then((response) => {
       if (response instanceof Error) {
         console.error(response.message);
       } else if (this.listState.state === "success") {
         const updatedResults = (this.listState as SuccessState<Task>).results.map(
-          (task) => (task.id === taskId ? { ...task, name } : task)
+          (task) => (task.id === taskId ? { ...task, ...payload } : task)
         );
         this.send({ type: "SUCCESS", results: updatedResults });
       }

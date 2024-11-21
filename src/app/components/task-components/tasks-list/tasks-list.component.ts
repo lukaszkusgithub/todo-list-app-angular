@@ -1,31 +1,21 @@
 import { Component, inject, Input } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NgIconComponent, provideIcons } from "@ng-icons/core";
-import { featherCalendar } from "@ng-icons/feather-icons";
-import { RemoveItemButtonComponent } from "@ui-components/remove-item-button/remove-item-button.component";
-import { AutosizeTextareaComponent } from "@ui-components/autosize-textarea/autosize-texarea.component";
-import { TaskListStateService } from "@services/tasks-list-state.service";
+import {
+  TaskListStateService,
+  TaskUpdatePayload,
+} from "@services/tasks-list-state.service";
 import { Task } from "@models/task.model";
+import { TaskCardComponent } from "@task-components/task-card/task-card.component";
 
 @Component({
   selector: "app-tasks-list",
   standalone: true,
-  viewProviders: [provideIcons({ featherCalendar })],
-  imports: [
-    CommonModule,
-    NgIconComponent,
-    RemoveItemButtonComponent,
-    AutosizeTextareaComponent,
-  ],
+  imports: [CommonModule, TaskCardComponent],
   templateUrl: `./tasks-list.component.html`,
   styles: [],
 })
 export class TasksListComponent {
   @Input({ required: true }) tasks: Task[] = [];
-  removeMode = false;
-  editMode = false;
-
-  isSingleClick = true;
 
   private tasksService = inject(TaskListStateService);
 
@@ -33,26 +23,7 @@ export class TasksListComponent {
     this.tasksService.deleteTask(taskId);
   }
 
-  updateTask(taskId: number, updatedName: string) {
-    this.tasksService.updateTask(taskId, updatedName);
-  }
-
-  handleSingleClick(task: Task) {
-    this.isSingleClick = true;
-
-    setTimeout(() => {
-      if (this.isSingleClick) {
-        this.toggleDoneStatus(task);
-      }
-    }, 150);
-  }
-
-  switchToEditMode() {
-    this.isSingleClick = false;
-    this.editMode = true;
-  }
-
-  toggleDoneStatus(task: Task) {
-    task.done = !task.done;
+  updateTask(taskId: number, updatedTask: TaskUpdatePayload) {
+    this.tasksService.updateTask(taskId, updatedTask);
   }
 }

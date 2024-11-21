@@ -1,32 +1,9 @@
 <ul>
   <li *ngFor="let task of tasks" class="mb-2">
-    <div class="rounded-md shadow-md p-4 block" [class.bg-green-300]="task.done">
-      <button
-        class="w-full"
-        (click)="handleSingleClick(task)"
-        (dblclick)="switchToEditMode()"
-      >
-        <header class="flex justify-end">
-          <app-remove-item-button (confirm)="delete(task.id)" />
-        </header>
-        <section class="text-left">
-          <app-autosize-textarea
-            *ngIf="editMode; else previewModeTemplate"
-            (keyup.escape)="editMode = false"
-            (submitText)="updateTask(task.id, $event)"
-            [value]="task.name"
-          />
-
-          <ng-template #previewModeTemplate>
-            <span [class.line-through]="task.done">
-              {{ task.name }}
-            </span>
-          </ng-template>
-        </section>
-        <footer class="pt-2 flex items-center justify-end">
-          <ng-icon name="featherCalendar" class="text-sm" />
-        </footer>
-      </button>
-    </div>
+    <app-task-card
+      [task]="task"
+      (update)="updateTask(task.id, $event)"
+      (delete)="delete(task.id)"
+    />
   </li>
 </ul>

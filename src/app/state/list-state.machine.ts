@@ -54,14 +54,16 @@ export function transition(
 
     case "error":
       if (event.type === "RETRY") {
-        return { state: "loading" }; // Retry by going back to loading state
+        return { state: "loading" };
       }
       break;
 
     case "success":
-      // Optionally, handle other events in success state
+      if (event.type === "SUCCESS") {
+        return { state: "success", results: event.results };
+      }
       break;
   }
 
-  return state; // If the event is not handled, return the current state
+  return state;
 }

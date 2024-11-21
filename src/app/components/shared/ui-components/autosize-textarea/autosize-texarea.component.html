@@ -4,6 +4,6 @@
   [value]="value"
   class="resize-none overflow-hidden focus:outline-orange-400 w-full"
   (click)="$event.stopPropagation()"
-  (keyup.enter)="submitText.emit(textarea.value); textarea.value = ''"
+  (keyup.enter)="emit(textarea)"
   (input)="calcHeight(textarea)"
 ></textarea>

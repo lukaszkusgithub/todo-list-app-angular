@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ListFetchingError } from "@models/error.model";
 import { Task } from "@models/task.model";
+import { TaskUpdatePayload } from "@services/tasks-list-state.service";
 import { wait } from "@utils/wait";
 
 @Injectable({
@@ -32,13 +33,13 @@ export class TaskListService {
     });
   }
 
-  async update(taskId: number, name: string) {
+  async update(taskId: number, payload: TaskUpdatePayload) {
     return fetch(`${this.URL}/tasks/${taskId}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ payload }),
     }).then<Task | Error>((response) => {
       if (response.ok) {
         return response.json();
